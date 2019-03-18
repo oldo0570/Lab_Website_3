@@ -1,0 +1,87 @@
+<% include ../partials/header %>
+<% include ../partials/menu %>
+	<div class="container">
+		<br>
+		<div class="row">
+			<div class="col-4">
+				<div class="card">
+				<!-- TODO: Modify the ejs code below, to conditionally set the image_src to be from our chosen player -->
+				  <% 
+				  if(specific_player) {
+				  	var image_src = info[6]
+				  }
+				  else {
+				  	var image_src = '../resources/img/helmet.jpg';
+				  }
+				  	
+				  
+				  %>
+				 <img class="card-img-top" id="player_img" src= "<%- image_src %>" alt="Image of Football Player">
+				  <div class="card-body mx-auto">
+					<form class="form"action="/player_info/post" method="get">
+						<select class="custom-select" name="player_choice" onchange="this.form.submit()">
+							 <option selected>Select Player</option>
+							 <option id=allplayers[0][0]> allplayers[0][1] </option>
+							 <option id=allplayers[1][0]> allplayers[1][1] </option>
+							 <option id=allplayers[2][0]> allplayers[2][1] </option>
+							 <option id=allplayers[3][0]> allplayers[3][1] </option>
+							 <option id=allplayers[4][0]> allplayers[4][1] </option>
+							 <option id=allplayers[5][0]> allplayers[5][1] </option>
+							 <option id=allplayers[6][0]> allplayers[6][1] </option>
+							 <option id=allplayers[7][0]> allplayers[7][1] </option>
+							 <option id=allplayers[8][0]> allplayers[8][1] </option>
+							 <option id=allplayers[9][0]> allplayers[9][1] </option>
+							 <!-- TODO: Populate our select with player options
+							 			For each player, set a new option with a value matching the palyer's id, 
+							 			but will display the player's name-->
+						</select>
+					</form>
+				  </div>
+				</div>
+			</div>
+			<div class="col-8">
+				<div class="table-responsive">
+					<table class="table">
+						<tr>
+							<%if(specific_player) {
+								var avg_rush = 'SELECT (rushing_yards FROM football_players WHERE name =' info[1] '/COUNT(*));';
+								var avg_rec = 'SELECT (receiving_yards FROM football_players WHERE name =' info[1] '/COUNT(*));';
+								var avg_pass = 'SELECT (passing_yards FROM football_players WHERE name =' info[1] '/COUNT(*));';
+							}
+
+
+
+							<!-- TODO: Set Player Information
+							 			If a player has been selected, fill in their information in each of the fields below.
+							 		    You'll need to calculate here the player's average rushing, receiving, and passing yards.-->
+							 %>
+							<th>Year</th>
+							<td> info[2] </td>
+						</tr>
+						<tr>
+							<th>Major</th>
+							<td> info[3] </td>
+						</tr>
+						<tr>
+							<th>Games Played</th>
+							<td> numgames </td>
+						</tr>
+						<tr>
+							<td>Passing Yards: </td>
+							<td>Avg. Passing Yards: avg_pass</td>
+						</tr>
+						<tr>
+							<td>Rushing Yards: </td>
+							<td>Avg. Rushing Yards: avg_rush </td>
+						</tr>
+						<tr>
+							<td>Receiving Yards: </td>
+							<td>Avg. Receiving Yards: avg_rec </td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+  
+<% include ../partials/footer %>
